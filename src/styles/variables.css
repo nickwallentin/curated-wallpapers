@@ -1,0 +1,44 @@
+:root {
+  /* Base sizes */
+  --b-space-section: 2rem;
+  --b-space-row: 1rem;
+  --b-gap: 1rem;
+  --b-radius: 4px;
+
+  --b-font-size: 1rem;
+  --b-line-height: 1.4rem;
+
+  --b-title-size: 4rem;
+  --b-section-title-size: 3rem;
+
+  --b-font-size-s: 0.8rem;
+
+  /* Multipliers */
+  --x-l: 1;
+  --x-m: 1;
+}
+
+body,
+body.light {
+  --c-bg: #ffffff;
+  --c-bg-secondary: #f2f2f2;
+  --c-bg-backdrop: #ffffffcc;
+  --c-bg-overlay: #ffffff80;
+  --c-text: #000000;
+  --c-text-sub: #808080;
+  --c-heading: #000000;
+  --c-accent: #f23440;
+  --c-icon: #000000;
+}
+
+body.dark {
+  --c-bg: #000000;
+  --c-bg-secondary: #171717;
+  --c-bg-backdrop: #000000cc;
+  --c-bg-overlay: #00000080;
+  --c-text: #ffffff;
+  --c-text-sub: #808080;
+  --c-heading: #ffffff;
+  --c-accent: #f23440;
+  --c-icon: #ffffff;
+}

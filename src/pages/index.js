@@ -1,27 +1,29 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { Link } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
+
 import SEO from "../components/seo"
 
+import { Sec, Wrap, Grid } from "../components/styled"
+import useLatestWallpapers from "../queries/useLatestWallpapers"
+import Wallpaper from "../components/wallpaper"
+
 const IndexPage = () => {
-  useEffect(() => {
-    fetch("/.netlify/functions/hello-world")
-      .then(res => res.text())
-      .then(text => console.log(text))
-  })
+  const wallpapers = useLatestWallpapers()
+
   return (
     <Layout>
       <SEO title="Home" />
-      <h1>Hi people</h1>
-      <p>Welcome to your new Gatsby site.</p>
-      <p>Now go build something great.</p>
-      <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-        <Image />
-      </div>
-      <Link to="/page-2/">Go to page 2</Link> <br />
-      <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
+      <Sec space="0px">
+        <Wrap>
+          <Grid>
+            {wallpapers.map(({ node: wallpaper }) => (
+              <Wallpaper key={wallpaper.id} wallpaper={wallpaper} />
+            ))}
+          </Grid>
+        </Wrap>
+      </Sec>
     </Layout>
   )
 }

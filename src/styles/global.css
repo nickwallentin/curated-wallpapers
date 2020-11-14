@@ -1,0 +1,43 @@
+@font-face {
+  font-family: "Inter Regular";
+  src: url("../../static/fonts/Inter-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Medium";
+  src: url("../../static/fonts/Inter-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Bold";
+  src: url("../../static/fonts/Inter-SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-display: swap;
+}
+
+body {
+  font-family: "Inter Regular", sans-serif;
+  background: var(--c-bg);
+  min-height: 100vh;
+}
+strong {
+  font-family: "Inter Medium";
+  letter-spacing: -1px;
+}
+
+svg path {
+  fill: var(--c-icon);
+}
+
+@keyframes fadeUp {
+  0% {
+    transform: translateY(50%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
