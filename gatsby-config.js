@@ -80,27 +80,7 @@ module.exports = {
         imagePath: "imageSrc",
       },
     },
-    {
-      resolve: `gatsby-source-airtable`,
-      options: {
-        apiKey: `${process.env.AIRTABLE_API_KEY}`, // may instead specify via env, see below
-        concurrency: 5, // default, see using markdown and attachments for more information
-        tables: [
-          {
-            baseId: `appZzhSysIVl6a18K`,
-            tableName: `Wallpapers`,
-            tableView: `All`, // optional
-            mapping: { Wallpaper: `fileNode` }, // optional, e.g. "text/markdown", "fileNode"
-            tableLinks: [`Categories`],
-          },
-          {
-            baseId: `appZzhSysIVl6a18K`,
-            tableName: `Categories`,
-            tableView: `All`, // optional
-          },
-        ],
-      },
-    },
+
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
