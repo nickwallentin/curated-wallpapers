@@ -4,17 +4,15 @@ import _uniq from "lodash/uniq"
 const useCategoryData = () => {
   const data = useStaticQuery(graphql`
     query getAllCategories {
-      allAirtable(filter: { table: { eq: "Categories" } }) {
+      allCategory {
         edges {
           node {
-            data {
-              Category
-            }
+            label
           }
         }
       }
     }
   `)
-  return data.allAirtable.edges
+  return data.allCategory.edges
 }
 export default useCategoryData

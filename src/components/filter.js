@@ -61,16 +61,16 @@ const Filter = () => {
                     </Link>
                   </li>
                   {categories.map(edge => (
-                    <li key={edge.node.data.Category}>
+                    <li key={edge.node.label}>
                       <Link
                         onClick={() =>
-                          handleFilter("Category", edge.node.data.Category)
+                          handleFilter("Category", edge.node.label)
                         }
                         activeClassName="active"
                         partiallyActive={true}
-                        to={`/wallpapers/${sorting}/${edge.node.data.Category.toLowerCase()}`}
+                        to={`/wallpapers/${sorting}/${edge.node.label.toLowerCase()}`}
                       >
-                        {edge.node.data.Category}
+                        {edge.node.label}
                       </Link>
                     </li>
                   ))}
