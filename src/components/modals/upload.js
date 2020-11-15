@@ -4,6 +4,13 @@ import Dropzone from "react-dropzone"
 import useCategoryData from "../../queries/useCategoryData"
 import AuthContext from "../../context/AuthContext"
 import { ModalContext } from "../../context/ModalContext"
+import _debounce from "lodash/debounce"
+
+import UploadIcon from "../../assets/icons/uploadToCloud.svg"
+import LoadingIcon from "../../assets/icons/loading.svg"
+import SuccessIcon from "../../assets/icons/success.svg"
+
+import { motion } from "framer-motion"
 
 const UploadModal = () => {
   const categoryOptions = useCategoryData()
@@ -13,6 +20,8 @@ const UploadModal = () => {
   const [title, setTitle] = useState("")
   const [image, setImage] = useState("")
   const [file, setFile] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
 
   const resetForm = () => {
     setCategories([])
@@ -47,6 +56,7 @@ const UploadModal = () => {
 
   const handleSubmit = async event => {
     event.preventDefault()
+    setLoading(true)
     const formData = new FormData()
     formData.append("upload_preset", "wallpaperDefault")
     formData.append("file", file)
@@ -81,63 +91,199 @@ const UploadModal = () => {
     })
 
     if (netlifyRes.status === 200) {
+      setLoading(false)
+      setSuccess(true)
       resetForm()
-      handleModal()
+      const nextStep = _debounce(() => handleModal(), 1500)
+      nextStep()
     }
   }
 
+  const showContent = () => {}
+
   return (
     <UploadModalStyles>
-      <div className="modal-header">
-        <h3>Upload</h3>
-      </div>
-      <div className="modal-content">
+      {success ? (
+        <motion.div
+          className="modal-state"
+          animate={{ opacity: 1 }}
+          initial={{ opacity: 0 }}
+          exit={{ opacity: 0 }}
+        >
+          <SuccessIcon className="success" />
+          <strong>Successfully uploaded</strong>
+        </motion.div>
+      ) : loading ? (
+        <motion.div
+          className="modal-state"
+          animate={{ opacity: 1 }}
+          initial={{ opacity: 0 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.span
+            animate={{ rotate: 360 }}
+            initial={{ rotate: 0 }}
+            transition={{ loop: Infinity, duration: 1 }}
+            style={{ width: "56px", height: "56px" }}
+          >
+            <LoadingIcon className="loading" />
+          </motion.span>
+          <strong>Uploading</strong>
+        </motion.div>
+      ) : (
         <form onSubmit={event => handleSubmit(event)}>
-          {!image ? (
-            <Dropzone onDrop={file => onImage(file)}>
-              {({ getRootProps, getInputProps }) => (
-                <div id="dropzone" {...getRootProps()}>
-                  <input {...getInputProps()} />
-                  <p>Drag 'n' drop some files here, or click to select files</p>
-                </div>
-              )}
-            </Dropzone>
-          ) : (
-            <img src={image} alt="Preview wallpaper" />
-          )}
-
-          <input
-            onChange={e => setTitle(e.target.value)}
-            type="text"
-            value={title}
-            placeholder="title"
-          />
-          {categoryOptions.map(({ node: category }) => (
-            <span key={category.label}>
-              <input
-                key={category.label}
-                type="checkbox"
-                value={category.label}
-                name={category.label}
-                onChange={() => handleSelectCategory(category.label)}
-              />
-              <label htmlFor={category.label}>{category.label}</label>
-            </span>
-          ))}
-          <button type="submit">Upload</button>
+          <div className="modal-header">
+            <input
+              onChange={e => setTitle(e.target.value)}
+              type="text"
+              value={title}
+              placeholder="Enter a title"
+              autoFocus
+            />
+          </div>
+          <div style={{ marginBottom: "0px" }} className="modal-image">
+            {!image ? (
+              <Dropzone onDrop={file => onImage(file)}>
+                {({ getRootProps, getInputProps }) => (
+                  <div id="dropzone" {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    <div className="dropzone-content">
+                      <UploadIcon />
+                      <p>Drop image or click</p>
+                    </div>
+                  </div>
+                )}
+              </Dropzone>
+            ) : (
+              <img src={image} alt="Preview wallpaper" />
+            )}
+          </div>
+          <div className="modal-content">
+            <strong style={{ marginBottom: "0.5rem", display: "block" }}>
+              Pick categories
+            </strong>
+            <div className="categories">
+              {categoryOptions.map(({ node: category }) => (
+                <span key={category.label}>
+                  <input
+                    key={category.label}
+                    type="checkbox"
+                    value={category.label}
+                    name={category.label}
+                    onChange={() => handleSelectCategory(category.label)}
+                  />
+                  <label htmlFor={category.label}>{category.label}</label>
+                </span>
+              ))}
+            </div>
+            <button
+              className={title && image && categories ? null : "disabled"}
+              type="submit"
+            >
+              Upload
+            </button>
+          </div>
         </form>
-      </div>
+      )}
     </UploadModalStyles>
   )
 }
 
 export default UploadModal
 
+const getColor = props => {
+  if (props.isDragAccept) {
+    return "#00e676"
+  }
+  if (props.isDragReject) {
+    return "#ff1744"
+  }
+  if (props.isDragActive) {
+    return "#2196f3"
+  }
+  return "#eeeeee"
+}
+
 const UploadModalStyles = styled.div`
+  .modal-state {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    svg {
+      width: 56px;
+      height: 56px;
+      margin-bottom: 1rem;
+      path {
+        fill: var(--c-text);
+      }
+    }
+  }
+  img {
+    margin-bottom: 0px;
+  }
+  .state {
+    text-align: center;
+    font-family: "Inter Medium";
+  }
   #dropzone {
     height: 350px;
     border-radius: var(--b-radius);
-    border: 2px solid var(--c-bg-secondary);
+    border: none;
     padding: 1rem;
+    background: var(--c-bg-backdrop);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .dropzone-content {
+      width: 200px;
+      text-align: center;
+      font-family: "Inter Medium";
+      color: var(--c-text-sub);
+    }
+  }
+  form {
+    margin: 0px;
+  }
+  input[type="text"] {
+    background: transparent;
+    outline: none;
+    color: var(--c-text);
+    padding: 0.5rem 0px;
+    display: block;
+    font-size: 1.2rem;
+    font-family: "Inter Medium";
+    border: none;
+  }
+  .categories {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0.5rem;
+    span {
+    }
+    input[type="checkbox"] {
+      margin-right: 0.5rem;
+    }
+  }
+  button {
+    &.disabled {
+      opacity: 0.3;
+    }
+    cursor: pointer;
+    background: var(--c-action);
+    display: block;
+    width: 100%;
+    border-radius: var(--b-radius);
+    border: none;
+    color: white;
+    padding: 0.8rem;
+    font-family: "Inter Medium";
+    margin-top: 1rem;
+    opacity: 0.9;
+    &:not(.disabled):hover {
+      opacity: 1;
+    }
   }
 `

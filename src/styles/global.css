@@ -57,3 +57,11 @@ svg path {
     opacity: 1;
   }
 }
+
+a {
+  color: var(--c-text-idle);
+  font-family: "Inter Medium";
+}
+a:hover {
+  color: var(--c-text-sub);
+}

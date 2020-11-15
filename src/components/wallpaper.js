@@ -5,6 +5,7 @@ import Img from "gatsby-image"
 import DownloadIcon from "../assets/icons/download.svg"
 import { Link } from "gatsby"
 import { ModalContext } from "../context/ModalContext"
+import { motion } from "framer-motion"
 
 const Wallpaper = ({ wallpaper }) => {
   const image = wallpaper.Thumbnail.childImageSharp.fluid
@@ -22,9 +23,9 @@ const Wallpaper = ({ wallpaper }) => {
       .then(text => console.log(text))
   }
   return (
-    <WallpaperStyles>
+    <WallpaperStyles animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
       <div className="wallpaper-image">
-        <Link to={wallpaper.fields.slug}>
+        <Link aria-label={wallpaper.title} to={wallpaper.fields.slug}>
           <Img fluid={image} />
         </Link>
         <div className="wallpaper-details-bottom">
@@ -47,7 +48,7 @@ const Wallpaper = ({ wallpaper }) => {
 
 export default Wallpaper
 
-const WallpaperStyles = styled.div`
+const WallpaperStyles = styled(motion.div)`
   transition: transform 200ms;
   position: relative;
   border-radius: var(--b-radius);

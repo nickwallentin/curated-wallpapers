@@ -8,6 +8,7 @@ import { Flex, Row, Sec, Wrap } from "../components/styled"
 import { styled } from "linaria/react"
 
 import Button from "../components/button"
+import { motion } from "framer-motion"
 
 const WallpaperTemplate = ({ data }) => {
   const wallpaper = data.wallpaper
@@ -24,7 +25,7 @@ const WallpaperTemplate = ({ data }) => {
   }
   return (
     <Layout single={true}>
-      <SingleWallpaperStyles>
+      <SingleWallpaperStyles animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
         <Sec space="0px">
           <Wrap>
             <Row>
@@ -57,7 +58,7 @@ const WallpaperTemplate = ({ data }) => {
 
 export default WallpaperTemplate
 
-const SingleWallpaperStyles = styled.div`
+const SingleWallpaperStyles = styled(motion.div)`
   .wallpaper {
     border-radius: var(--b-radius);
     overflow: hidden;

@@ -14,7 +14,7 @@ const Filter = () => {
   const categories = useCategoryData()
   const scrollRef = useRef(null)
   const [sorting, setSorting] = useState(
-    store.get("filterSort") ? store.get("filterSort") : "latest"
+    store.get("filterSort") ? store.get("filterSort") : "popular"
   )
   const [category, setCategory] = useState(
     store.get("filterCategory") ? store.get("filterCategory") : "all"
@@ -165,10 +165,6 @@ const FilterStyles = styled.div`
     }
   }
   .categories {
-    white-space: nowrap; /* [1] */
-    overflow: auto; /* [2] */
-    -webkit-overflow-scrolling: touch; /* [3] */
-    min-height: 35px;
     display: flex;
     align-items: center;
 
@@ -176,6 +172,10 @@ const FilterStyles = styled.div`
       display: none;
     }
     @media (max-width: 600px) {
+      white-space: nowrap; /* [1] */
+      overflow: auto; /* [2] */
+      -webkit-overflow-scrolling: touch; /* [3] */
+      min-height: 35px;
       padding-left: 10px;
       padding-right: 10%;
       mask-image: linear-gradient(

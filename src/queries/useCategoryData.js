@@ -7,6 +7,7 @@ const useCategoryData = () => {
         edges {
           node {
             label
+            slug
           }
         }
       }

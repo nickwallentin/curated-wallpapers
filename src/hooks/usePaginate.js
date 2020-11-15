@@ -7,15 +7,13 @@ export const usePaginate = () => {
     const currentGroupInt = parseInt(currentGroup)
     const nextGroup = currentGroupInt - 1
 
-    const maxLength = 4
-
     const currentPageArray = currentPage.split("/")
 
-    // Remove current group if exists
-    if (currentPageArray.length > maxLength) {
+    if (currentPageArray.includes(currentGroup)) {
       currentPageArray.pop()
       currentPage = currentPageArray.join("/")
     }
+
     const nextPage = `${currentPage}/${nextGroup.toString()}`
     const doesPageExist = pages.filter(page => page.node.path === nextPage)
 
@@ -31,11 +29,11 @@ export const usePaginate = () => {
     const maxLength = 4
     const currentPageArray = currentPage.split("/")
 
-    // Remove current group if exists
-    if (currentPageArray.length > maxLength) {
+    if (currentPageArray.includes(currentGroup)) {
       currentPageArray.pop()
       currentPage = currentPageArray.join("/")
     }
+
     const nextPage = `${currentPage}/${nextGroup.toString()}`
     const doesPageExist = pages.filter(page => page.node.path === nextPage)
 

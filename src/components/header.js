@@ -5,10 +5,12 @@ import React, { useContext } from "react"
 import { Flex, Row, Wrap } from "./styled"
 import AddIcon from "../assets/icons/add.svg"
 
-import Auth from "./auth"
+import User from "./user"
 import { ModalContext } from "../context/ModalContext"
+import AuthContext from "../context/AuthContext"
 
 const Header = () => {
+  const user = useContext(AuthContext)
   const { handleModal } = useContext(ModalContext)
   return (
     <HeaderStyles>
@@ -29,12 +31,15 @@ const Header = () => {
             <div className="actions">
               <div
                 className="icon-link"
-                onClick={() => handleModal(true, "upload")}
+                onClick={() =>
+                  user ? handleModal(true, "upload") : handleModal(true, "auth")
+                }
                 style={{ color: "var(--c-text)" }}
               >
                 <AddIcon />
               </div>
-              <Auth />
+
+              <User />
             </div>
           </Flex>
         </Row>

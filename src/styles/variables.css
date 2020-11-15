@@ -13,6 +13,8 @@
 
   --b-font-size-s: 0.8rem;
 
+  --c-action: #0278ff;
+
   /* Multipliers */
   --x-l: 1;
   --x-m: 1;
@@ -36,7 +38,7 @@ body.light {
 body.dark {
   --c-bg: #000000;
   --c-bg-secondary: #171717;
-  --c-bg-backdrop: #000000cc;
+  --c-bg-backdrop: #13131399;
   --c-bg-overlay: #00000080;
   --c-text: #ffffff;
   --c-text-sub: #808080;

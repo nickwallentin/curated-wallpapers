@@ -34,9 +34,10 @@ const useAuth = () => {
   }
 
   const login = (type, email, password) => {
-    fb.auth()
+    return fb
+      .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(res => console.log("Signed in"))
+      .then(res => res.user)
       .catch(err => console.log(err))
   }
 
