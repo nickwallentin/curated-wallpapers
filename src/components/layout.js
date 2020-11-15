@@ -1,6 +1,5 @@
-import React, { useState } from "react"
+import React from "react"
 import PropTypes from "prop-types"
-import Img from "gatsby-image"
 
 import Header from "./header"
 import Footer from "./footer"

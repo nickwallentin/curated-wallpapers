@@ -1,5 +1,3 @@
-import { graphql, navigate, useStaticQuery } from "gatsby"
-import React from "react"
 import usePaginationData from "../queries/usePaginationData"
 
 export const usePaginate = () => {
@@ -10,6 +8,7 @@ export const usePaginate = () => {
     const nextGroup = currentGroupInt - 1
 
     const maxLength = 4
+
     const currentPageArray = currentPage.split("/")
 
     // Remove current group if exists

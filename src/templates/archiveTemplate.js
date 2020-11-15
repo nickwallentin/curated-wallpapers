@@ -1,37 +1,20 @@
-import { graphql, Link, navigate } from "gatsby"
-import React, { useEffect, useState } from "react"
+import { graphql } from "gatsby"
+import React from "react"
 import Button from "../components/button"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { Sec, Wrap, Row, Grid, Flex } from "../components/styled"
+import { Sec, Wrap, Grid, Flex } from "../components/styled"
 import Wallpaper from "../components/wallpaper"
 import { usePaginate } from "../hooks/usePaginate"
 
 const ArchiveTemplate = ({ pageContext, data, location }) => {
-  const [scrollPosition, setScrollPosition] = useState(0)
   const { paginate, hasNextPage } = usePaginate()
-  const hasData = data.allWallpaper.edges.length > 0 ? true : false
+
   let { sorting, category, group } = pageContext
 
   const wallpapers = data.allWallpaper.edges
 
   sorting = sorting.charAt(0).toUpperCase() + sorting.slice(1)
-
-  useEffect(() => {
-    const dom = document.querySelector("#wallpapers")
-
-    var scrollviewOffsetY = dom.scrollTop
-    var scrollviewFrameHeight = dom.clientHeight
-    var scrollviewContentHeight = dom.scrollHeight
-    var scrollMargin = 500
-    var sum = scrollviewOffsetY + scrollviewFrameHeight
-
-    return () => {
-      document.removeEventListener("scroll", () => {
-        console.log("Remove listener")
-      })
-    }
-  })
 
   return (
     <Layout>

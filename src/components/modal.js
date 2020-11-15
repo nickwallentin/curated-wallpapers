@@ -3,10 +3,7 @@ import { motion } from "framer-motion"
 import React, { useContext } from "react"
 import ReactDOM from "react-dom"
 import { ModalContext } from "../context/ModalContext"
-import { Grid } from "./styled"
-import Img from "gatsby-image"
 
-import CloseIcon from "../assets/icons/close.svg"
 import CreditModal from "./modals/credit"
 import UploadModal from "./modals/upload"
 

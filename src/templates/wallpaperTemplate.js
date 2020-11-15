@@ -1,14 +1,12 @@
-import { graphql, navigate } from "gatsby"
+import { graphql } from "gatsby"
 import React, { useContext } from "react"
 import Img from "gatsby-image"
 import { ModalContext } from "../context/ModalContext"
 
 import Layout from "../components/layout"
-import { Flex, Grid, Row, Sec, Wrap } from "../components/styled"
+import { Flex, Row, Sec, Wrap } from "../components/styled"
 import { styled } from "linaria/react"
 
-import CloseIcon from "../assets/icons/close.svg"
-import DownloadIcon from "../assets/icons/download.svg"
 import Button from "../components/button"
 
 const WallpaperTemplate = ({ data }) => {

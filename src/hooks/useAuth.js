@@ -1,13 +1,10 @@
-import React, { useContext, useState } from "react"
 import { getFirebase } from "../firebase/getFirebase"
-import AuthContext from "../context/AuthContext"
 
 const useAuth = () => {
-  const fb = getFirebase()
-  const auth = fb.auth()
-  const db = fb.firestore()
-  const currentUser = useContext(AuthContext)
-  const [user, setUser] = useState(currentUser ? currentUser : null)
+  if (typeof window !== "undefined") {
+    const fb = getFirebase()
+    const auth = fb.auth()
+  }
 
   const createUser = (type, email, password) => {
     if (type === "password") {

@@ -1,12 +1,12 @@
 import { styled } from "linaria/react"
-import React, { useState, useContext } from "react"
+import React, { useContext } from "react"
 import AuthContext from "../context/AuthContext"
 import useAuth from "../hooks/useAuth"
 
 const Auth = () => {
   const user = useContext(AuthContext)
   const { createUser, login, signout } = useAuth()
-  const [modal, setModal] = useState()
+
   return (
     <AuthStyles>
       {user ? (

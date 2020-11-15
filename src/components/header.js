@@ -1,14 +1,13 @@
-import { Link, navigate } from "gatsby"
+import { Link } from "gatsby"
 import { styled } from "linaria/react"
 import PropTypes from "prop-types"
 import React, { useContext } from "react"
 import { Flex, Row, Wrap } from "./styled"
 
-import CloseIcon from "../assets/icons/close.svg"
 import Auth from "./auth"
 import { ModalContext } from "../context/ModalContext"
 
-const Header = ({ siteTitle }) => {
+const Header = () => {
   const { handleModal } = useContext(ModalContext)
   return (
     <HeaderStyles>

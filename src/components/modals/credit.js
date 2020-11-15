@@ -1,5 +1,5 @@
 import React from "react"
-import ReactDOM from "react-dom"
+
 import Img from "gatsby-image"
 import CloseIcon from "../../assets/icons/close.svg"
 import { styled } from "linaria/react"
@@ -21,11 +21,11 @@ const CreditModal = ({ modalContent, handleModal }) => {
         <div className="attribution">
           Designed by{" "}
           <strong>
-            <a href="#">{modalContent.user.displayName}</a>
+            <a href="https://www.apple.com">{modalContent.user.displayName}</a>
           </strong>{" "}
           on{" "}
           <strong>
-            <a href="#">wallpapers.com</a>
+            <a href="https://www.apple.com">wallpapers.com</a>
           </strong>
         </div>
       </div>

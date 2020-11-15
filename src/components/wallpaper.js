@@ -52,53 +52,24 @@ const WallpaperStyles = styled.div`
   position: relative;
   border-radius: var(--b-radius);
   overflow: hidden;
-  &:hover {
-    transform: scale(1.05);
-    .wallpaper-details-bottom {
-      opacity: 1;
-      transform: translateY(0px);
-    }
-    .wallpaper-image {
-      .gatsby-image-wrapper {
-        transform: scale(1.1);
-      }
-    }
-  }
-  .wallpaper-image {
-    .gatsby-image-wrapper {
-      transition: all 1s;
-    }
-  }
+
   .credit {
     font-family: "Inter Bold";
     font-size: 80%;
     color: var(--c-text);
     text-decoration: none;
   }
+
   .wallpaper-details-bottom {
-    transform: translateY(50%);
-    opacity: 0;
-    backdrop-filter: blur(6px);
-    transition: all 200ms;
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem;
-    width: 100%;
-    background: #00000050;
-    overflow: hidden;
-    border-bottom-left-radius: var(--b-radius);
-    border-bottom-right-radius: var(--b-radius);
-
     a {
       color: white;
       text-decoration: none;
       padding: 0.5rem;
     }
-
     .download {
       display: flex;
       justify-content: center;
@@ -113,6 +84,41 @@ const WallpaperStyles = styled.div`
       }
       &:hover {
         background: #ffffff30;
+      }
+    }
+  }
+
+  @media (min-width: 800px) {
+    .wallpaper-details-bottom {
+      transform: translateY(50%);
+      opacity: 0;
+      backdrop-filter: blur(6px);
+      transition: all 200ms;
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+
+      width: 100%;
+      background: #00000050;
+      overflow: hidden;
+      border-bottom-left-radius: var(--b-radius);
+      border-bottom-right-radius: var(--b-radius);
+    }
+    &:hover {
+      transform: scale(1.05);
+      .wallpaper-details-bottom {
+        opacity: 1;
+        transform: translateY(0px);
+      }
+      .wallpaper-image {
+        .gatsby-image-wrapper {
+          transform: scale(1.1);
+        }
+      }
+    }
+    .wallpaper-image {
+      .gatsby-image-wrapper {
+        transition: all 1s;
       }
     }
   }

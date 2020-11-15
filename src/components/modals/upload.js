@@ -62,8 +62,9 @@ const UploadModal = () => {
 
     const date = new Date()
     const dateString = JSON.stringify(date)
-
-    const dateGroup = dateString.split("-")[0] + dateString.split("-")[1]
+    if (dateString) {
+      const dateGroup = dateString.split("-")[0] + dateString.split("-")[1]
+    }
 
     const body = {
       user: user.uid,
@@ -79,7 +80,7 @@ const UploadModal = () => {
       method: "POST",
       body: JSON.stringify(body),
     })
-    const json = await netlifyRes.json()
+
     if (netlifyRes.status === 200) {
       resetForm()
       handleModal()
@@ -103,7 +104,7 @@ const UploadModal = () => {
               )}
             </Dropzone>
           ) : (
-            <img src={image} />
+            <img src={image} alt="Preview wallpaper" />
           )}
 
           <input
