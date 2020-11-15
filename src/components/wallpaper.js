@@ -60,6 +60,11 @@ const WallpaperStyles = styled.div`
     text-decoration: none;
   }
 
+  .wallpaper-image {
+    border-radius: var(--b-radius);
+    overflow: hidden;
+  }
+
   .wallpaper-details-bottom {
     display: flex;
     align-items: center;
@@ -79,7 +84,7 @@ const WallpaperStyles = styled.div`
       border-radius: var(--b-radius);
       svg {
         path {
-          fill: var(--c-icon);
+          fill: var(--c-text);
         }
       }
       &:hover {

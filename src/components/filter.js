@@ -143,6 +143,10 @@ const FilterStyles = styled.div`
     }
   }
   .categories {
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
     ul {
       list-style-type: none;
       margin: 0px;
