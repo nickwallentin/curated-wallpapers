@@ -171,18 +171,20 @@ const FilterStyles = styled.div`
     min-height: 35px;
     display: flex;
     align-items: center;
-    padding-left: 10px;
-    padding-right: 10%;
-    mask-image: linear-gradient(
-      to right,
-      transparent,
-      var(--c-bg) 10px,
-      var(--c-bg) 90%,
-      transparent
-    );
 
     &::-webkit-scrollbar {
       display: none;
+    }
+    @media (max-width: 600px) {
+      padding-left: 10px;
+      padding-right: 10%;
+      mask-image: linear-gradient(
+        to right,
+        transparent,
+        var(--c-bg) 10px,
+        var(--c-bg) 90%,
+        transparent
+      );
     }
     ul {
       list-style-type: none;
