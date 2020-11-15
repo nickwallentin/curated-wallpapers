@@ -1,6 +1,6 @@
 import { styled } from "linaria/react"
 import { Link, navigate } from "gatsby"
-import React from "react"
+import React, { useRef, useEffect } from "react"
 import useCategoryData from "../queries/useCategoryData"
 import { Row, Sec, Wrap, Flex } from "./styled"
 import store from "store"
@@ -12,12 +12,30 @@ import FilterIcon from "../assets/icons/filter.svg"
 
 const Filter = () => {
   const categories = useCategoryData()
+  const scrollRef = useRef(null)
   const [sorting, setSorting] = useState(
     store.get("filterSort") ? store.get("filterSort") : "latest"
   )
   const [category, setCategory] = useState(
     store.get("filterCategory") ? store.get("filterCategory") : "all"
   )
+
+  const handleScroll = left => {
+    if (typeof window !== undefined) {
+      const session = window.sessionStorage
+      session.setItem("subnav-scroll", left)
+    }
+  }
+
+  useEffect(() => {
+    if (typeof window !== undefined) {
+      const session = window.sessionStorage
+      const scrollPosition = session.getItem("subnav-scroll")
+      if (scrollPosition) {
+        scrollRef.current.scrollLeft = scrollPosition
+      }
+    }
+  }, [])
 
   const handleFilter = (type, content) => {
     store.set(`filter${type}`, content.toLowerCase())
@@ -61,7 +79,11 @@ const Filter = () => {
                   </Link>
                 </div>
               </div>
-              <div className="categories">
+              <div
+                ref={scrollRef}
+                onScroll={e => handleScroll(e.target.scrollLeft)}
+                className="categories"
+              >
                 <ul>
                   <li>
                     <Link
@@ -143,7 +165,22 @@ const FilterStyles = styled.div`
     }
   }
   .categories {
-    overflow-x: scroll;
+    white-space: nowrap; /* [1] */
+    overflow: auto; /* [2] */
+    -webkit-overflow-scrolling: touch; /* [3] */
+    min-height: 35px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10%;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      var(--c-bg) 10px,
+      var(--c-bg) 90%,
+      transparent
+    );
+
     &::-webkit-scrollbar {
       display: none;
     }
