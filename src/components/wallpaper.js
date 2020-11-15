@@ -66,7 +66,7 @@ const WallpaperStyles = styled.div`
     justify-content: space-between;
     padding: 0.5rem;
     a {
-      color: white;
+      color: var(--c-text);
       text-decoration: none;
       padding: 0.5rem;
     }
@@ -79,11 +79,16 @@ const WallpaperStyles = styled.div`
       border-radius: var(--b-radius);
       svg {
         path {
-          fill: white;
+          fill: var(--c-icon);
         }
       }
       &:hover {
-        background: #ffffff30;
+        svg {
+          path {
+            fill: var(--c-text);
+          }
+        }
+        background: var(--c-bg-secondary);
       }
     }
   }

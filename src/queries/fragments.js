@@ -11,7 +11,7 @@ export const WallpaperFragments = graphql`
     Thumbnail: localImage {
       childImageSharp {
         fluid(maxWidth: 600, maxHeight: 400, cropFocus: CENTER) {
-          ...GatsbyImageSharpFluid_withWebp
+          ...GatsbyImageSharpFluid_withWebp_noBase64
         }
       }
     }
@@ -34,14 +34,14 @@ export const WallpaperFragments = graphql`
     Desktop: localImage {
       childImageSharp {
         fluid(maxWidth: 1920) {
-          ...GatsbyImageSharpFluid_withWebp
+          ...GatsbyImageSharpFluid_withWebp_noBase64
         }
       }
     }
     Thumbnail: localImage {
       childImageSharp {
         fluid(maxWidth: 600, maxHeight: 400, cropFocus: CENTER) {
-          ...GatsbyImageSharpFluid_withWebp
+          ...GatsbyImageSharpFluid_withWebp_noBase64
         }
       }
     }
