@@ -61,8 +61,10 @@ const WallpaperStyles = styled.div`
   }
 
   .wallpaper-image {
-    border-radius: var(--b-radius);
-    overflow: hidden;
+    .gatsby-image-wrapper {
+      border-radius: var(--b-radius);
+      overflow: hidden;
+    }
   }
 
   .wallpaper-details-bottom {
