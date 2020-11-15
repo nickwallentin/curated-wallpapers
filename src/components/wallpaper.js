@@ -102,15 +102,36 @@ const WallpaperStyles = styled.div`
       position: absolute;
       bottom: 0px;
       left: 0px;
-
+      color: white;
       width: 100%;
       background: #00000050;
       overflow: hidden;
       border-bottom-left-radius: var(--b-radius);
       border-bottom-right-radius: var(--b-radius);
+      a {
+        color: white;
+      }
+
+      .download {
+        svg {
+          path {
+            fill: #ffffff;
+          }
+        }
+        &:hover {
+          svg {
+            path {
+              fill: #ffffff;
+            }
+          }
+          background: #ffffff20;
+        }
+      }
     }
     &:hover {
-      transform: scale(1.05);
+      transform: scale(1.1);
+      box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.6);
+      z-index: 2;
       .wallpaper-details-bottom {
         opacity: 1;
         transform: translateY(0px);

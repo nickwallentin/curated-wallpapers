@@ -3,6 +3,7 @@ import { styled } from "linaria/react"
 import PropTypes from "prop-types"
 import React, { useContext } from "react"
 import { Flex, Row, Wrap } from "./styled"
+import AddIcon from "../assets/icons/add.svg"
 
 import Auth from "./auth"
 import { ModalContext } from "../context/ModalContext"
@@ -27,10 +28,11 @@ const Header = () => {
             </div>
             <div className="actions">
               <div
+                className="icon-link"
                 onClick={() => handleModal(true, "upload")}
                 style={{ color: "var(--c-text)" }}
               >
-                Upload
+                <AddIcon />
               </div>
               <Auth />
             </div>

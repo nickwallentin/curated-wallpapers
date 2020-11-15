@@ -31,6 +31,22 @@ svg path {
   fill: var(--c-icon);
 }
 
+.icon-link {
+  padding: 0.3rem;
+  display: flex;
+  align-items: center;
+  border-radius: var(--b-radius);
+  box-sizing: border-box;
+  margin-right: 0.2rem;
+  cursor: pointer;
+}
+.icon-link:hover {
+  background: var(--c-bg-secondary);
+}
+.icon-link:hover svg path {
+  fill: var(--c-icon-hover);
+}
+
 @keyframes fadeUp {
   0% {
     transform: translateY(50%);
