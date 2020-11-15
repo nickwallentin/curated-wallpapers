@@ -62,9 +62,8 @@ const UploadModal = () => {
 
     const date = new Date()
     const dateString = JSON.stringify(date)
-    if (dateString) {
-      const dateGroup = dateString.split("-")[0] + dateString.split("-")[1]
-    }
+
+    const dateGroup = dateString.split("-")[0] + dateString.split("-")[1]
 
     const body = {
       user: user.uid,
