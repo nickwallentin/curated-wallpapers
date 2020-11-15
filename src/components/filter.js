@@ -6,6 +6,10 @@ import { Row, Sec, Wrap, Flex } from "./styled"
 import store from "store"
 import { useState } from "react"
 
+import LatestIcon from "../assets/icons/latest.svg"
+import PopularIcon from "../assets/icons/popular.svg"
+import FilterIcon from "../assets/icons/filter.svg"
+
 const Filter = () => {
   const categories = useCategoryData()
   const [sorting, setSorting] = useState(
@@ -17,6 +21,12 @@ const Filter = () => {
 
   const handleFilter = (type, content) => {
     store.set(`filter${type}`, content.toLowerCase())
+    if (type === "Sort") {
+      setSorting(content.toLowerCase())
+    }
+    if (type === "Category") {
+      setCategory(content.toLowerCase())
+    }
   }
 
   return (
@@ -26,26 +36,28 @@ const Filter = () => {
           <Row>
             <Flex align="center" justify="space-between">
               <div className="sort">
-                <div onClick={() => handleFilter("Sort", "latest")}>
-                  <Link
-                    to={
-                      category === "all"
-                        ? `/wallpapers/latest`
-                        : `/wallpapers/latest/${category}`
-                    }
-                  >
-                    Latest
-                  </Link>
-                </div>
                 <div onClick={() => handleFilter("Sort", "popular")}>
                   <Link
+                    className={sorting === "popular" ? "active" : null}
                     to={
                       category === "all"
                         ? `/wallpapers/popular`
                         : `/wallpapers/popular/${category}`
                     }
                   >
-                    Popular
+                    <PopularIcon />
+                  </Link>
+                </div>
+                <div onClick={() => handleFilter("Sort", "latest")}>
+                  <Link
+                    className={sorting === "latest" ? "active" : null}
+                    to={
+                      category === "all"
+                        ? `/wallpapers/latest`
+                        : `/wallpapers/latest/${category}`
+                    }
+                  >
+                    <LatestIcon />
                   </Link>
                 </div>
               </div>
@@ -54,7 +66,7 @@ const Filter = () => {
                   <li>
                     <Link
                       onClick={() => handleFilter("Category", "All")}
-                      activeClassName="active"
+                      className={category === "all" ? "active" : null}
                       to={`/wallpapers/${sorting}`}
                     >
                       All
@@ -76,7 +88,11 @@ const Filter = () => {
                   ))}
                 </ul>
               </div>
-              <div className="filter">Filters</div>
+              <div className="filter">
+                <span className="icon">
+                  <FilterIcon />
+                </span>
+              </div>
             </Flex>
           </Row>
         </Wrap>
@@ -88,21 +104,83 @@ const Filter = () => {
 export default Filter
 
 const FilterStyles = styled.div`
+  a {
+    font-size: 0.9rem;
+  }
+
+  .sort {
+    display: flex;
+    a {
+      padding: 0.3rem;
+      display: flex;
+      align-items: center;
+      border-radius: var(--b-radius);
+      box-sizing: border-box;
+      margin-right: 0.2rem;
+      &.active {
+        svg {
+          path {
+            fill: var(--c-text);
+          }
+        }
+        &:hover {
+          svg {
+            path {
+              fill: var(--c-text);
+            }
+          }
+        }
+      }
+
+      &:hover {
+        background: var(--c-bg-secondary);
+        svg {
+          path {
+            fill: var(--c-icon-hover);
+          }
+        }
+      }
+    }
+  }
   .categories {
     ul {
       list-style-type: none;
       margin: 0px;
       display: flex;
+      align-items: center;
       li {
+        margin: 0px;
         a {
-          color: var(--c-text);
+          color: var(--c-text-idle);
           text-decoration: none;
           padding: 0.5rem 1rem;
           border-radius: var(--b-radius);
-          transition: all 200ms;
-          background: var(--c-bg);
+          font-family: "Inter Medium";
+          &:hover {
+            color: var(--c-text-sub);
+          }
           &.active {
             background: var(--c-bg-secondary);
+            color: var(--c-text);
+          }
+        }
+      }
+    }
+  }
+  .filter {
+    .icon {
+      padding: 0.3rem;
+      display: flex;
+      align-items: center;
+      border-radius: var(--b-radius);
+      box-sizing: border-box;
+      margin-right: 0.2rem;
+
+      &:hover {
+        background: var(--c-bg-secondary);
+        svg {
+          path {
+            fill: var(--c-icon-hover);
           }
         }
       }

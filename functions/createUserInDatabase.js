@@ -20,23 +20,29 @@ if (!admin.apps.length) {
     databaseURL: "https://wallpapers-6a027.firebaseio.com",
   })
 }
-const db = admin.firestore()
 
 exports.handler = async function (event) {
-  const { id } = JSON.parse(event.body)
-  console.log(id)
-
   const db = admin.firestore()
-  const increment = admin.firestore.FieldValue.increment(1)
-
+  const { uid, email, displayName } = JSON.parse(event.body)
   return db
-    .doc("wallpapers/" + id)
-    .update({ downloads: increment })
+    .doc(`users/${uid}`)
+    .set({
+      uid: uid,
+      email: email,
+      displayName: displayName,
+      dateCreated: new Date(),
+    })
     .then(res => {
       return {
         statusCode: 200,
-        body: "Incremented downloads",
+        body: "User created in db",
       }
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.log(err)
+      return {
+        statusCode: 500,
+        body: "Failed to create user",
+      }
+    })
 }

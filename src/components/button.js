@@ -21,7 +21,11 @@ const Button = ({ download, file, to, children, handleDownload }) => {
 export default Button
 
 const ButtonStyles = styled.span`
-  a {
+  &:hover {
+    cursor: pointer;
+  }
+  a,
+  span {
     text-decoration: none;
     color: var(--c-text);
     padding: 0.5rem 0.8rem;

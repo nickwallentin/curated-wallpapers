@@ -7,9 +7,13 @@ import { Grid } from "./styled"
 import Img from "gatsby-image"
 
 import CloseIcon from "../assets/icons/close.svg"
+import CreditModal from "./modals/credit"
+import UploadModal from "./modals/upload"
 
 const Modal = () => {
-  const { modal, handleModal, modalContent } = useContext(ModalContext)
+  const { modal, modalType, handleModal, modalContent } = useContext(
+    ModalContext
+  )
 
   if (modal) {
     return ReactDOM.createPortal(
@@ -24,28 +28,13 @@ const Modal = () => {
           animate={{ opacity: 1, y: "-50%", x: "-50%" }}
           initial={{ opacity: 0, y: "50%", x: "-50%" }}
         >
-          <div className="modal-image">
-            <Img fluid={modalContent.Thumbnail.childImageSharp.fluid} />
-          </div>
-          <div className="modal-credit">
-            <CloseIcon className="close-modal" onClick={() => handleModal()} />
-            <h3>Say thank you!</h3>
-            <p>
-              Give a shout out to <strong>{modalContent.creditName}</strong> on
-              social or copy the text below to attribute.
-            </p>
-            <div className="socials"></div>
-            <div className="attribution">
-              Designed by{" "}
-              <strong>
-                <a href="#">{modalContent.creditName}</a>
-              </strong>{" "}
-              on{" "}
-              <strong>
-                <a href="#">wallpapers.com</a>
-              </strong>
-            </div>
-          </div>
+          {modalType === "credit" && (
+            <CreditModal
+              handleModal={handleModal}
+              modalContent={modalContent}
+            />
+          )}
+          {modalType === "upload" && <UploadModal />}
         </ModalStyles>
       </React.Fragment>,
       document.querySelector("#main")
@@ -66,12 +55,11 @@ const ModalStyles = styled(motion.div)`
   backdrop-filter: blur(10px);
 
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-  padding: 1.5rem;
   border-radius: var(--b-radius);
-  display: grid;
-  grid-template-columns: 150px 2fr;
-  grid-gap: 1rem;
   font-size: 0.9rem;
+  & > div {
+    padding: 1rem;
+  }
 
   .modal-image {
     height: 100%;

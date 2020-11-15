@@ -2,8 +2,10 @@ import { graphql } from "gatsby"
 
 export const WallpaperFragments = graphql`
   fragment WallpaperPreviewData on Wallpaper {
-    creditName
     id
+    user {
+      displayName
+    }
     imageSrc
     dateAdded
     Thumbnail: localImage {
@@ -19,9 +21,13 @@ export const WallpaperFragments = graphql`
   }
 
   fragment WallpaperFullData on Wallpaper {
-    creditName
     title
     dateAdded
+    user {
+      displayName
+    }
+    id
+    imageSrc
     Download: localImage {
       publicURL
     }

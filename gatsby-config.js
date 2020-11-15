@@ -53,10 +53,10 @@ module.exports = {
             map: doc => ({
               title: doc.title,
               imageSrc: doc.imageSrc,
-              creditName: doc.creditName,
               downloads: doc.downloads,
               dateAdded: doc.dateAdded.toDate(),
               groupByMonth: doc.groupByMonth,
+              user___NODE: doc.user.id,
               categories___NODE: doc.categories.map(category => category.id),
             }),
           },
@@ -68,6 +68,15 @@ module.exports = {
             map: doc => ({
               label: doc.label,
               slug: doc.slug,
+            }),
+          },
+          {
+            type: `User`,
+            collection: `users`,
+            //custom query..
+            query: ref => ref.limit(1000),
+            map: doc => ({
+              displayName: doc.displayName,
             }),
           },
         ],

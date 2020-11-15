@@ -20,23 +20,30 @@ if (!admin.apps.length) {
     databaseURL: "https://wallpapers-6a027.firebaseio.com",
   })
 }
-const db = admin.firestore()
 
-exports.handler = async function (event) {
-  const { id } = JSON.parse(event.body)
-  console.log(id)
-
+exports.handler = async event => {
+  const body = JSON.parse(event.body)
   const db = admin.firestore()
-  const increment = admin.firestore.FieldValue.increment(1)
 
-  return db
-    .doc("wallpapers/" + id)
-    .update({ downloads: increment })
-    .then(res => {
-      return {
-        statusCode: 200,
-        body: "Incremented downloads",
-      }
-    })
-    .catch(err => console.log(err))
+  body.categories = body.categories.map(category =>
+    db.doc(`category/${category.toLowerCase()}`)
+  )
+  body.user = db.doc(`users/${body.user}`)
+  body.dateAdded = new Date()
+  body.colors = body.colors.map(color => `${color[1]}${color[0]}`)
+
+  try {
+    const response = await db.collection("wallpapers").add({ ...body })
+    console.log(response)
+    return {
+      statusCode: 200,
+      body: JSON.stringify(response),
+    }
+  } catch (err) {
+    console.log(err)
+    return {
+      statusCode: 500,
+      body: JSON.stringify(err),
+    }
+  }
 }

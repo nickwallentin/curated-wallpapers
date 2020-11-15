@@ -16,7 +16,7 @@ const WallpaperTemplate = ({ data }) => {
   const { handleModal } = useContext(ModalContext)
 
   const handleDownload = () => {
-    handleModal(wallpaper)
+    handleModal(wallpaper, "credit")
     fetch("/.netlify/functions/incrementDownloads", {
       method: "POST",
       body: JSON.stringify({ id: wallpaper.id }),
@@ -32,8 +32,8 @@ const WallpaperTemplate = ({ data }) => {
             <Row>
               <Flex justify="space-between" align="center">
                 <div className="credit">
-                  <strong>{wallpaper.creditName}</strong>
-                  <small>@username</small>
+                  <strong>{wallpaper.user.displayName}</strong>
+                  <small>@{wallpaper.user.displayName}</small>
                 </div>
                 <Button
                   handleDownload={handleDownload}

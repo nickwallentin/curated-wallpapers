@@ -25,10 +25,12 @@ body.light {
   --c-bg-backdrop: #ffffffcc;
   --c-bg-overlay: #ffffff80;
   --c-text: #000000;
+  --c-text-idle: #aea9aa;
   --c-text-sub: #808080;
   --c-heading: #000000;
   --c-accent: #f23440;
-  --c-icon: #000000;
+  --c-icon: #aea9aa;
+  --c-icon-hover: #808080;
 }
 
 body.dark {
@@ -38,7 +40,9 @@ body.dark {
   --c-bg-overlay: #00000080;
   --c-text: #ffffff;
   --c-text-sub: #808080;
+  --c-text-idle: #595959;
   --c-heading: #ffffff;
   --c-accent: #f23440;
-  --c-icon: #ffffff;
+  --c-icon: #595959;
+  --c-icon-hover: #808080;
 }

@@ -13,17 +13,6 @@ module.exports.onCreateNode = ({ node, actions }) => {
   // Transform the new node here and create a new node or
   // create a new node field.
   const { createNodeField } = actions
-  if (node.internal.type === "Airtable" && node.table === "Wallpapers") {
-    const slug = `/wallpaper/${slugify(node.data.Title)}-${
-      node.id.split("-")[0]
-    }`
-    createNodeField({
-      //same as node: node
-      node,
-      name: "slug",
-      value: slug,
-    })
-  }
   if (node.internal.type === "Wallpaper") {
     const partOfId = node.id.slice(0, 8)
     const slug = `/wallpaper/${slugify(node.title)}-${partOfId}`
@@ -54,6 +43,23 @@ module.exports.createPages = async ({ graphql, actions }) => {
       }
     }
   `)
+  const paginate = await graphql(`
+    query {
+      allWallpaper {
+        group(field: groupByMonth) {
+          fieldValue
+          edges {
+            node {
+              categories {
+                label
+                slug
+              }
+            }
+          }
+        }
+      }
+    }
+  `)
   const categories = await graphql(`
     query {
       allCategory {
@@ -67,6 +73,9 @@ module.exports.createPages = async ({ graphql, actions }) => {
       }
     }
   `)
+
+  const lastGroupIndex = paginate.data.allWallpaper.group.length - 1
+  const lastGroupItem = paginate.data.allWallpaper.group[lastGroupIndex]
 
   const sortings = [
     { path: "latest", enum: "dateAdded" },
@@ -83,6 +92,7 @@ module.exports.createPages = async ({ graphql, actions }) => {
     })
   })
 
+  // Top level pages (No groups)
   sortings.forEach(sorting => {
     createPage({
       component: archiveTemplate,
@@ -90,6 +100,7 @@ module.exports.createPages = async ({ graphql, actions }) => {
       context: {
         sortingEnum: sorting.enum,
         sorting: sorting.path,
+        group: lastGroupItem.fieldValue,
       },
     })
     categories.data.allCategory.edges.forEach(edge => {
@@ -101,8 +112,66 @@ module.exports.createPages = async ({ graphql, actions }) => {
           sortingEnum: sorting.enum,
           sorting: sorting.path,
           category: category,
+          group: lastGroupItem.fieldValue,
         },
       })
     })
+  })
+
+  //Group pages
+  paginate.data.allWallpaper.group.map((group, index) => {
+    if (index !== lastGroupIndex) {
+      group.edges.forEach(edge => {
+        sortings.forEach(sorting => {
+          createPage({
+            component: archiveTemplate,
+            path: `wallpapers/${sorting.path}/${group.fieldValue}`,
+            context: {
+              sortingEnum: sorting.enum,
+              sorting: sorting.path,
+              group: group.fieldValue,
+            },
+          })
+          edge.node.categories.forEach(category => {
+            createPage({
+              component: archiveTemplate,
+              path: `wallpapers/${sorting.path}/${category.slug}/${group.fieldValue}`,
+              context: {
+                sortingEnum: sorting.enum,
+                sorting: sorting.path,
+                category: category.label,
+                group: group.fieldValue,
+              },
+            })
+          })
+        })
+      })
+      // sortings.forEach(sorting => {
+      //   createPage({
+      //     component: archiveTemplate,
+      //     path: `/wallpapers/${sorting.path}/${group.fieldValue}`,
+      //     context: {
+      //       sortingEnum: sorting.enum,
+      //       sorting: sorting.path,
+      //       group: group.fieldValue,
+      //     },
+      //   })
+      //   categories.data.allCategory.edges.forEach(edge => {
+      //     const category = edge.node.label
+      //     createPage({
+      //       component: archiveTemplate,
+      //       path: `/wallpapers/${sorting.path}/${category.toLowerCase()}/${
+      //         group.fieldValue
+      //       }`,
+      //       context: {
+      //         sortingEnum: sorting.enum,
+      //         sorting: sorting.path,
+      //         category: category,
+      //         group: group.fieldValue,
+      //       },
+      //     })
+      //   })
+      // })
+    }
   })
 }

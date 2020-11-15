@@ -5,9 +5,11 @@ import useModal from "../hooks/useModal"
 export const ModalContext = React.createContext({})
 
 export const ModalProvier = ({ children }) => {
-  const { modal, handleModal, modalContent } = useModal()
+  const { modal, modalType, handleModal, modalContent } = useModal()
   return (
-    <ModalContext.Provider value={{ modal, handleModal, modalContent }}>
+    <ModalContext.Provider
+      value={{ modal, modalType, handleModal, modalContent }}
+    >
       {children}
       <Modal />
     </ModalContext.Provider>

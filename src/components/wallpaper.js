@@ -13,7 +13,7 @@ const Wallpaper = ({ wallpaper }) => {
   const { handleModal } = useContext(ModalContext)
 
   const handleDownload = () => {
-    handleModal(wallpaper)
+    handleModal(wallpaper, "credit")
     fetch("/.netlify/functions/incrementDownloads", {
       method: "POST",
       body: JSON.stringify({ id: wallpaper.id }),
@@ -29,7 +29,7 @@ const Wallpaper = ({ wallpaper }) => {
         </Link>
         <div className="wallpaper-details-bottom">
           <Link to="/" className="credit">
-            {wallpaper.creditName}
+            {wallpaper.user.displayName}
           </Link>
           <a
             onClick={() => handleDownload()}
