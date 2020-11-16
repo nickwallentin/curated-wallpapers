@@ -10,7 +10,8 @@ import { ModalContext } from "../context/ModalContext"
 import AuthContext from "../context/AuthContext"
 
 const Header = () => {
-  const { user } = useContext(AuthContext)
+  const auth = useContext(AuthContext)
+  const user = auth && auth.user
   const { handleModal } = useContext(ModalContext)
   return (
     <HeaderStyles>
