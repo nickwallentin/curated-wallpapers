@@ -8,7 +8,9 @@ import store from "store"
 import AuthIcon from "../assets/icons/auth.svg"
 
 const User = () => {
-  const { user, userData } = useContext(AuthContext)
+  const auth = useContext(AuthContext)
+  const user = auth && auth.user
+  const userData = auth && auth.userdata
   const { createUser, login, signout } = useAuth()
   const { handleModal } = useContext(ModalContext)
 

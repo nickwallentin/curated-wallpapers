@@ -5,8 +5,6 @@ import Header from "./header"
 import Footer from "./footer"
 import Filter from "./filter"
 
-import "../styles/reset.css"
-import "../styles/variables.css"
 import "../styles/global.css"
 
 const Layout = ({ children, single, pageContext }) => {
