@@ -9,12 +9,12 @@ import "../styles/reset.css"
 import "../styles/variables.css"
 import "../styles/global.css"
 
-const Layout = ({ children, single }) => {
+const Layout = ({ children, single, pageContext }) => {
   return (
     <React.Fragment>
       <Header />
       <main id="main">
-        {!single && <Filter />}
+        {!single && <Filter pageContext={pageContext} />}
         {children}
       </main>
       <Footer />

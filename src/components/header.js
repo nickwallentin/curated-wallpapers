@@ -10,7 +10,7 @@ import { ModalContext } from "../context/ModalContext"
 import AuthContext from "../context/AuthContext"
 
 const Header = () => {
-  const user = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
   const { handleModal } = useContext(ModalContext)
   return (
     <HeaderStyles>
@@ -38,7 +38,6 @@ const Header = () => {
               >
                 <AddIcon />
               </div>
-
               <User />
             </div>
           </Flex>
@@ -61,7 +60,7 @@ export default Header
 const HeaderStyles = styled.header`
   background: var(--c-bg);
   border-bottom: 1px solid var(--c-bg-secondary);
-  font-family: "Inter Medium";
+  font-family: "Inter Medium", sans-serif;
 
   .actions {
     display: flex;

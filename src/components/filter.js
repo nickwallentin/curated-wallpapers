@@ -10,7 +10,9 @@ import LatestIcon from "../assets/icons/latest.svg"
 import PopularIcon from "../assets/icons/popular.svg"
 import FilterIcon from "../assets/icons/filter.svg"
 
-const Filter = () => {
+const Filter = ({ pageContext }) => {
+  const contextCategory = pageContext && pageContext.category
+
   const categories = useCategoryData()
   const scrollRef = useRef(null)
   const [sorting, setSorting] = useState(
@@ -34,6 +36,10 @@ const Filter = () => {
       if (scrollPosition) {
         scrollRef.current.scrollLeft = scrollPosition
       }
+    }
+    if (pageContext && contextCategory) {
+      store.set("filterCategory", contextCategory.toLowerCase())
+      setCategory(contextCategory.toLowerCase())
     }
   }, [])
 
@@ -198,7 +204,7 @@ const FilterStyles = styled.div`
           text-decoration: none;
           padding: 0.5rem 1rem;
           border-radius: var(--b-radius);
-          font-family: "Inter Medium";
+          font-family: "Inter Medium", sans-serif;
           &:hover {
             color: var(--c-text-sub);
           }

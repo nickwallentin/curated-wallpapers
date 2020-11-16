@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useRef, useState } from "react"
 import { styled } from "linaria/react"
 import Dropzone from "react-dropzone"
 import useCategoryData from "../../queries/useCategoryData"
@@ -14,7 +14,8 @@ import { motion } from "framer-motion"
 
 const UploadModal = () => {
   const categoryOptions = useCategoryData()
-  const user = useContext(AuthContext)
+  const dropzoneRef = useRef()
+  const { user } = useContext(AuthContext)
   const { handleModal } = useContext(ModalContext)
   const [categories, setCategories] = useState([])
   const [title, setTitle] = useState("")
@@ -22,6 +23,7 @@ const UploadModal = () => {
   const [file, setFile] = useState(null)
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [dragging, setDragging] = useState(false)
 
   const resetForm = () => {
     setCategories([])
@@ -99,8 +101,6 @@ const UploadModal = () => {
     }
   }
 
-  const showContent = () => {}
-
   return (
     <UploadModalStyles>
       {success ? (
@@ -143,13 +143,37 @@ const UploadModal = () => {
           </div>
           <div style={{ marginBottom: "0px" }} className="modal-image">
             {!image ? (
-              <Dropzone onDrop={file => onImage(file)}>
+              <Dropzone
+                onDragEnter={() => setDragging(true)}
+                onDragLeave={() => setDragging(false)}
+                onDrop={file => onImage(file)}
+              >
                 {({ getRootProps, getInputProps }) => (
-                  <div id="dropzone" {...getRootProps()}>
+                  <div
+                    className={dragging ? "dropping" : null}
+                    id="dropzone"
+                    {...getRootProps()}
+                  >
                     <input {...getInputProps()} />
                     <div className="dropzone-content">
                       <UploadIcon />
-                      <p>Drop image or click</p>
+                      {dragging ? (
+                        <motion.p
+                          animate={{ opacity: 1 }}
+                          initial={{ opacity: 0 }}
+                          exit={{ opacity: 0 }}
+                        >
+                          Drop it like it's hot
+                        </motion.p>
+                      ) : (
+                        <motion.p
+                          animate={{ opacity: 1 }}
+                          initial={{ opacity: 0 }}
+                          exit={{ opacity: 0 }}
+                        >
+                          Drop or choose an image
+                        </motion.p>
+                      )}
                     </div>
                   </div>
                 )}
@@ -162,7 +186,10 @@ const UploadModal = () => {
             <strong style={{ marginBottom: "0.5rem", display: "block" }}>
               Pick categories
             </strong>
-            <div className="categories">
+            <div
+              onDragEnter={() => console.log("Dragging over")}
+              className="categories"
+            >
               {categoryOptions.map(({ node: category }) => (
                 <span key={category.label}>
                   <input
@@ -205,6 +232,13 @@ const getColor = props => {
 }
 
 const UploadModalStyles = styled.div`
+  .dropping {
+    svg {
+      path {
+        fill: var(--c-action);
+      }
+    }
+  }
   .modal-state {
     padding: 2rem;
     display: flex;

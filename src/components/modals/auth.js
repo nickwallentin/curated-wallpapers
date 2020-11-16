@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react"
 import useAuth from "../../hooks/useAuth"
 import _debounce from "lodash/debounce"
 import { ModalContext } from "../../context/ModalContext"
+import store from "store"
 
 import LoadingIcon from "../../assets/icons/loading.svg"
 import SuccessIcon from "../../assets/icons/success.svg"
@@ -16,7 +17,7 @@ const AuthModal = () => {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [user, setUser] = useState(null)
-  const { login } = useAuth()
+  const { login, createUser, signout } = useAuth()
 
   const handleSubmit = async event => {
     event.preventDefault()
@@ -26,8 +27,30 @@ const AuthModal = () => {
       setUser(user)
       setLoading(false)
       setSuccess(true)
-      const nextStep = _debounce(() => handleModal(), 1500)
+      const nextStep = _debounce(() => handleModal(), 1000)
       nextStep()
+    } else if (view === "signup") {
+      const user = await createUser("password", email, password)
+      signout()
+      setLoading(false)
+      setSuccess(false)
+      setView("login")
+    }
+  }
+
+  const renderAuthText = () => {
+    if (store.get("firstLoginNeeded") && view === "login") {
+      return (
+        <span className="success">
+          <SuccessIcon /> Account created, please login
+        </span>
+      )
+    } else if (view === "login") {
+      return "Login to your account"
+    }
+
+    if (view === "signup") {
+      return "Create your account"
     }
   }
 
@@ -40,7 +63,10 @@ const AuthModal = () => {
           initial={{ opacity: 0 }}
           exit={{ opacity: 0 }}
         >
-          <SuccessIcon className="success" />
+          <SuccessIcon
+            style={{ width: "46px", height: "46px" }}
+            className="success"
+          />
           <strong>Welcome {user.displayName}</strong>
         </motion.div>
       ) : loading ? (
@@ -54,12 +80,12 @@ const AuthModal = () => {
             animate={{ rotate: 360 }}
             initial={{ rotate: 0 }}
             transition={{ loop: Infinity, duration: 1 }}
-            style={{ width: "56px", height: "56px" }}
+            style={{ width: "46px", height: "46px" }}
           >
             <LoadingIcon className="loading" />
           </motion.span>
           <strong>
-            {view === "loading" ? "Logging you in" : "Creating account"}
+            {view === "login" ? "Logging you in" : "Creating account"}
           </strong>
         </motion.div>
       ) : (
@@ -85,11 +111,7 @@ const AuthModal = () => {
             </div>
           </div>
           <div className="modal-auth-text">
-            <p>
-              {view === "login"
-                ? "Log in to your account"
-                : "Create your account"}
-            </p>
+            <p>{renderAuthText()}</p>
           </div>
           <div className="modal-auth">
             <form onSubmit={e => handleSubmit(e)}>
@@ -132,8 +154,13 @@ const AuthModalStyles = styled.div`
     justify-content: center;
     align-items: center;
     svg {
-      width: 56px;
-      height: 56px;
+      &.success {
+        path {
+          fill: var(--c-success);
+        }
+      }
+      width: 46px;
+      height: 46px;
       margin-bottom: 1rem;
       path {
         fill: var(--c-text);
@@ -170,6 +197,18 @@ const AuthModalStyles = styled.div`
   .modal-auth-text {
     font-family: "Inter Medium";
     text-align: center;
+    display: flex;
+    justify-content: center;
+    .success {
+      display: flex;
+      align-items: center;
+      svg {
+        margin-right: 0.5rem;
+        path {
+          fill: var(--c-success);
+        }
+      }
+    }
   }
   form {
     margin: 0px;

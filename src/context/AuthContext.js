@@ -13,10 +13,9 @@ export const AuthProvider = ({ children }) => {
       if (u) {
         if (!user) {
           store.set("user", u)
-          setUser(u)
         }
-        console.log(u.uid)
-        if (!userData) {
+        setUser(u)
+        if (!userData && !store.get("firstLoginNeeded")) {
           fetch("/.netlify/functions/getAuthUserData", {
             method: "POST",
             body: JSON.stringify(u.uid),
@@ -30,8 +29,8 @@ export const AuthProvider = ({ children }) => {
 
         return "lol"
       } else {
-        store.clearAll()
         setUser(null)
+        setUserData(null)
         store.remove("user")
         store.remove("userData")
         console.log("[DEBUG/AuthContext] no user")
@@ -40,7 +39,11 @@ export const AuthProvider = ({ children }) => {
     })
   }
 
-  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={{ user, userData }}>
+      {children}
+    </AuthContext.Provider>
+  )
 }
 
 export default AuthContext

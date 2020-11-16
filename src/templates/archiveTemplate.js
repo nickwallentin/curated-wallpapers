@@ -1,11 +1,12 @@
 import { graphql } from "gatsby"
-import React from "react"
+import React, { useEffect } from "react"
 import Button from "../components/button"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { Sec, Wrap, Grid, Flex } from "../components/styled"
 import Wallpaper from "../components/wallpaper"
 import { usePaginate } from "../hooks/usePaginate"
+import store from "store"
 
 const ArchiveTemplate = ({ pageContext, data, location }) => {
   const { paginate, hasNextPage } = usePaginate()
@@ -17,7 +18,7 @@ const ArchiveTemplate = ({ pageContext, data, location }) => {
   sorting = sorting.charAt(0).toUpperCase() + sorting.slice(1)
 
   return (
-    <Layout>
+    <Layout pageContext={pageContext}>
       <SEO title={`${sorting} ${category ? category : ""} Wallpapers`} />
       <Sec space="0px">
         <Wrap>

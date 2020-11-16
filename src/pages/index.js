@@ -1,26 +1,53 @@
 import React from "react"
-
+import { styled } from "linaria/react"
 import Layout from "../components/layout"
+import Img from "gatsby-image"
+import { Link } from "gatsby"
+import store from "store"
 
 import SEO from "../components/seo"
 
 import { Sec, Wrap, Grid } from "../components/styled"
-import useLatestWallpapers from "../queries/useLatestWallpapers"
+import useTopWallpapers from "../queries/useTopWallpapers"
 import Wallpaper from "../components/wallpaper"
+import useCategoryGroups from "../queries/useCategoryGroups"
+import { motion } from "framer-motion"
 
 const IndexPage = () => {
-  const wallpapers = useLatestWallpapers()
+  const categoryGroups = useCategoryGroups()
 
   return (
     <Layout>
       <SEO title="Home" />
       <Sec space="0px">
         <Wrap>
-          <Grid>
-            {wallpapers.map(({ node: wallpaper }) => (
-              <Wallpaper key={wallpaper.id} wallpaper={wallpaper} />
+          <GroupGrid>
+            {categoryGroups.map((group, index) => (
+              <GroupCard
+                animate={{ opacity: 1 }}
+                initial={{ opacity: 0 }}
+                exit={{ opacity: 0 }}
+                className={
+                  index === 0 ? "first" : index === 1 ? "second" : null
+                }
+              >
+                <Link
+                  to={`/wallpapers/${
+                    store.get("filterSort")
+                      ? store.get("filterSort")
+                      : "popular"
+                  }/${group.fieldValue.toLowerCase()}`}
+                >
+                  <Img
+                    fluid={group.edges[0].node.localImage.childImageSharp.fluid}
+                  />
+                  <div className="group-content">
+                    <h2>{group.fieldValue}</h2>
+                  </div>
+                </Link>
+              </GroupCard>
             ))}
-          </Grid>
+          </GroupGrid>
         </Wrap>
       </Sec>
     </Layout>
@@ -28,3 +55,74 @@ const IndexPage = () => {
 }
 
 export default IndexPage
+
+const GroupGrid = styled.grid`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-gap: 1rem;
+
+  @media (min-width: 600px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  @media (min-width: 980px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+`
+
+const GroupCard = styled(motion.div)`
+  border-radius: var(--b-radius);
+  overflow: hidden;
+  &.first {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  grid-column: auto;
+  grid-row: auto;
+
+  .gatsby-image-wrapper {
+    transition: transform 1s;
+    height: 100%;
+    border-radius: var(--b-radius);
+    overflow: hidden;
+    img {
+      border-radius: var(--b-radius);
+      overflow: hidden;
+    }
+  }
+  &:hover .gatsby-image-wrapper {
+    transform: scale(1.2);
+    border-radius: var(--b-radius);
+    overflow: hidden;
+  }
+
+  position: relative;
+
+  .group-content {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    h2 {
+      color: white;
+    }
+  }
+  h2 {
+    font-size: 1rem;
+  }
+  @media (min-width: 600px) {
+    h2 {
+      font-size: inherit;
+    }
+    .group-content {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      h2 {
+        color: white;
+      }
+    }
+  }
+  @media (min-width: 980px) {
+    font-size: inherit;
+  }
+`

@@ -1,9 +1,9 @@
 import { graphql, useStaticQuery } from "gatsby"
 
-const useLatestWallpapers = () => {
+const useTopWallpapers = () => {
   const data = useStaticQuery(graphql`
     query {
-      allWallpaper {
+      allWallpaper(sort: { fields: downloads, order: DESC }) {
         edges {
           node {
             fields {
@@ -18,4 +18,4 @@ const useLatestWallpapers = () => {
   return data.allWallpaper.edges
 }
 
-export default useLatestWallpapers
+export default useTopWallpapers

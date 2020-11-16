@@ -1,12 +1,15 @@
 import React from "react"
 import { getFirebase } from "../firebase/getFirebase"
+import store from "store"
 
 const useAuth = () => {
   const fb = getFirebase()
 
   const createUser = (type, email, password) => {
     if (type === "password") {
-      fb.auth()
+      store.set("firstLoginNeeded", true)
+      return fb
+        .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(({ user }) => {
           user
@@ -23,13 +26,10 @@ const useAuth = () => {
                 }),
               })
                 .then(res => res.text())
-                .then(text => console.log(text))
+                .then(text => text)
             })
         })
-        .then(res => {
-          signout()
-        })
-        .catch(err => console.log(err))
+        .catch(err => err)
     }
   }
 
@@ -37,7 +37,10 @@ const useAuth = () => {
     return fb
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(res => res.user)
+      .then(res => {
+        store.remove("firstLoginNeeded")
+        return res.user
+      })
       .catch(err => console.log(err))
   }
 

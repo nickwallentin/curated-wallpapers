@@ -34,7 +34,6 @@ exports.handler = async event => {
 
   try {
     const response = await db.collection("wallpapers").add({ ...body })
-    console.log(response)
     return {
       statusCode: 200,
       body: JSON.stringify(response),

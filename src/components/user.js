@@ -3,11 +3,12 @@ import React, { useContext } from "react"
 import AuthContext from "../context/AuthContext"
 import { ModalContext } from "../context/ModalContext"
 import useAuth from "../hooks/useAuth"
+import store from "store"
 
 import AuthIcon from "../assets/icons/auth.svg"
 
 const User = () => {
-  const user = useContext(AuthContext)
+  const { user, userData } = useContext(AuthContext)
   const { createUser, login, signout } = useAuth()
   const { handleModal } = useContext(ModalContext)
 
