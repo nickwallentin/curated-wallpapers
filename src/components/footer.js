@@ -89,6 +89,7 @@ const Footer = () => {
 export default Footer
 
 const FooterStyles = styled.div`
+  border-top: 1px solid var(--c-bg-secondary);
   .footer-main {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;

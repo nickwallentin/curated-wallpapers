@@ -20,7 +20,7 @@ const ArchiveTemplate = ({ pageContext, data, location }) => {
   return (
     <Layout pageContext={pageContext}>
       <SEO title={`${sorting} ${category ? category : ""} Wallpapers`} />
-      <Sec space="0px">
+      <Sec style={{ paddingTop: "0px" }}>
         <Wrap>
           <Grid id="wallpapers">
             {wallpapers.map(({ node: wallpaper }) => (

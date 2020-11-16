@@ -19,7 +19,7 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="Home" />
-      <Sec space="0px">
+      <Sec style={{ paddingTop: "0px" }}>
         <Wrap>
           <GroupGrid>
             {categoryGroups.map((group, index) => (
@@ -76,6 +76,9 @@ const GroupCard = styled(motion.div)`
   &.first {
     grid-column: span 2;
     grid-row: span 2;
+    h2 {
+      font-size: 2rem;
+    }
   }
   grid-column: auto;
   grid-row: auto;
@@ -103,26 +106,28 @@ const GroupCard = styled(motion.div)`
     top: 1rem;
     left: 1rem;
     h2 {
-      color: white;
+      color: var(--c-text);
     }
   }
   h2 {
     font-size: 1rem;
+    padding: 0.3rem 0.5rem;
+    background: var(--c-bg-backdrop);
+    border-radius: var(--b-radius);
+    backdrop-filter: blur(15px);
   }
   @media (min-width: 600px) {
     h2 {
-      font-size: inherit;
+      font-size: 1.2rem;
     }
     .group-content {
-      position: absolute;
       top: 2rem;
       left: 2rem;
-      h2 {
-        color: white;
-      }
     }
   }
   @media (min-width: 980px) {
-    font-size: inherit;
+    h2 {
+      font-size: 1.5rem;
+    }
   }
 `

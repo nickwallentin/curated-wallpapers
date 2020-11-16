@@ -26,7 +26,7 @@ const WallpaperTemplate = ({ data }) => {
   return (
     <Layout single={true}>
       <SingleWallpaperStyles animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
-        <Sec space="0px">
+        <Sec style={{ paddingTop: "0px" }}>
           <Wrap>
             <Row>
               <Flex justify="space-between" align="center">
