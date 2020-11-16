@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "cross-env": "^7.0.2",
     "firebase": "^8.0.2",
     "firebase-admin": "^9.4.1",
     "framer-motion": "^2.9.4",
