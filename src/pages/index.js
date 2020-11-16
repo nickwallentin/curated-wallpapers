@@ -18,7 +18,7 @@ const IndexPage = () => {
 
   return (
     <Layout>
-      <SEO title="Free wallpapers" />
+      <SEO title="Free wallpapers by designers" />
       <Sec style={{ paddingTop: "0px" }}>
         <Wrap>
           <GroupGrid>
