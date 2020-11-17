@@ -7,13 +7,13 @@ import LatestIcon from "../assets/icons/latest.svg"
 import PopularIcon from "../assets/icons/popular.svg"
 import store from "store"
 import { styled } from "linaria/react"
-import useCategoryData from "../queries/useCategoryData"
+import useCategoryGroups from "../queries/useCategoryGroups"
 import { useState } from "react"
 
 const Filter = ({ pageContext }) => {
   const contextCategory = pageContext && pageContext.category
 
-  const categories = useCategoryData()
+  const categoryGroups = useCategoryGroups()
   const scrollRef = useRef(null)
   const [sorting, setSorting] = useState(
     store.get("filterSort") ? store.get("filterSort") : "popular"
@@ -100,20 +100,22 @@ const Filter = ({ pageContext }) => {
                       All
                     </Link>
                   </li>
-                  {categories.map(edge => (
-                    <li key={edge.node.label}>
-                      <Link
-                        onClick={() =>
-                          handleFilter("Category", edge.node.label)
-                        }
-                        activeClassName="active"
-                        partiallyActive={true}
-                        to={`/wallpapers/${sorting}/${edge.node.label.toLowerCase()}`}
-                      >
-                        {edge.node.label}
-                      </Link>
-                    </li>
-                  ))}
+                  {categoryGroups.map(group => {
+                    return (
+                      <li key={group.fieldValue}>
+                        <Link
+                          onClick={() =>
+                            handleFilter("Category", group.fieldValue)
+                          }
+                          activeClassName="active"
+                          partiallyActive={true}
+                          to={`/wallpapers/${sorting}/${group.fieldValue.toLowerCase()}`}
+                        >
+                          {group.fieldValue}
+                        </Link>
+                      </li>
+                    )
+                  })}
                 </ul>
               </div>
               <div className="filter">
