@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react"
-import { styled } from "linaria/react"
-import Img from "gatsby-image"
 
 import DownloadIcon from "../assets/icons/download.svg"
+import Img from "gatsby-image"
 import { Link } from "gatsby"
 import { ModalContext } from "../context/ModalContext"
 import { motion } from "framer-motion"
+import { styled } from "linaria/react"
 
 const Wallpaper = ({ wallpaper }) => {
   const image = wallpaper.localImage.childImageSharp.fluid

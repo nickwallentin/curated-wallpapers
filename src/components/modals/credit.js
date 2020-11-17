@@ -1,7 +1,5 @@
-import React from "react"
-
 import Img from "gatsby-image"
-
+import React from "react"
 import { styled } from "linaria/react"
 
 const CreditModal = ({ modalContent, handleModal }) => {

@@ -1,5 +1,5 @@
-import React from "react"
 import Modal from "../components/modal"
+import React from "react"
 import useModal from "../hooks/useModal"
 
 export const ModalContext = React.createContext({})

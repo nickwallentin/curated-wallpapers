@@ -1,12 +1,13 @@
+import { Flex, Grid, Sec, Wrap } from "../components/styled"
 import React, { useEffect } from "react"
-import { graphql } from "gatsby"
+
 import Button from "../components/button"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { Sec, Wrap, Grid, Flex } from "../components/styled"
 import Wallpaper from "../components/wallpaper"
-import { usePaginate } from "../hooks/usePaginate"
+import { graphql } from "gatsby"
 import store from "store"
+import { usePaginate } from "../hooks/usePaginate"
 
 const ArchiveTemplate = ({ pageContext, data, location }) => {
   const { paginate, hasNextPage } = usePaginate()

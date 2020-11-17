@@ -1,17 +1,16 @@
-import React from "react"
-import { styled } from "linaria/react"
-import Layout from "../components/layout"
+import { Grid, Sec, Wrap } from "../components/styled"
+
 import Img from "gatsby-image"
+import Layout from "../components/layout"
 import { Link } from "gatsby"
-import store from "store"
-
+import React from "react"
 import SEO from "../components/seo"
-
-import { Sec, Wrap, Grid } from "../components/styled"
-import useTopWallpapers from "../queries/useTopWallpapers"
 import Wallpaper from "../components/wallpaper"
-import useCategoryGroups from "../queries/useCategoryGroups"
 import { motion } from "framer-motion"
+import store from "store"
+import { styled } from "linaria/react"
+import useCategoryGroups from "../queries/useCategoryGroups"
+import useTopWallpapers from "../queries/useTopWallpapers"
 
 const IndexPage = () => {
   const categoryGroups = useCategoryGroups()

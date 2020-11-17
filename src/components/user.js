@@ -1,11 +1,11 @@
 import React, { useContext } from "react"
-import { styled } from "linaria/react"
-import AuthContext from "../context/AuthContext"
-import { ModalContext } from "../context/ModalContext"
-import useAuth from "../hooks/useAuth"
-import store from "store"
 
+import AuthContext from "../context/AuthContext"
 import AuthIcon from "../assets/icons/auth.svg"
+import { ModalContext } from "../context/ModalContext"
+import store from "store"
+import { styled } from "linaria/react"
+import useAuth from "../hooks/useAuth"
 
 const User = () => {
   const auth = useContext(AuthContext)

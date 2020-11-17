@@ -1,11 +1,10 @@
-import React from "react"
-import PropTypes from "prop-types"
-
-import Header from "./header"
-import Footer from "./footer"
-import Filter from "./filter"
-
 import "../styles/global.css"
+
+import Filter from "./filter"
+import Footer from "./footer"
+import Header from "./header"
+import PropTypes from "prop-types"
+import React from "react"
 
 const Layout = ({ children, single, pageContext }) => {
   return (

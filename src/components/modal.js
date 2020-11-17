@@ -1,14 +1,13 @@
 import React, { useContext } from "react"
-import { styled } from "linaria/react"
-import { motion } from "framer-motion"
-import ReactDOM from "react-dom"
-import { ModalContext } from "../context/ModalContext"
 
-import CreditModal from "./modals/credit"
-import UploadModal from "./modals/upload"
 import AuthModal from "./modals/auth"
-
 import CloseIcon from "../assets/icons/close.svg"
+import CreditModal from "./modals/credit"
+import { ModalContext } from "../context/ModalContext"
+import ReactDOM from "react-dom"
+import UploadModal from "./modals/upload"
+import { motion } from "framer-motion"
+import { styled } from "linaria/react"
 
 const Modal = () => {
   const { modal, modalType, handleModal, modalContent } = useContext(

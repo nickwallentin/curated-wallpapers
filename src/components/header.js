@@ -1,14 +1,13 @@
-import React, { useContext } from "react"
-import { styled } from "linaria/react"
-import { Link } from "gatsby"
-
-import PropTypes from "prop-types"
 import { Flex, Row, Wrap } from "./styled"
-import AddIcon from "../assets/icons/add.svg"
+import React, { useContext } from "react"
 
-import User from "./user"
-import { ModalContext } from "../context/ModalContext"
+import AddIcon from "../assets/icons/add.svg"
 import AuthContext from "../context/AuthContext"
+import { Link } from "gatsby"
+import { ModalContext } from "../context/ModalContext"
+import PropTypes from "prop-types"
+import User from "./user"
+import { styled } from "linaria/react"
 
 const Header = () => {
   const auth = useContext(AuthContext)

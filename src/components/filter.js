@@ -1,14 +1,14 @@
-import React, { useRef, useEffect } from "react"
-import { styled } from "linaria/react"
+import { Flex, Row, Sec, Wrap } from "./styled"
 import { Link, navigate } from "gatsby"
-import useCategoryData from "../queries/useCategoryData"
-import { Row, Sec, Wrap, Flex } from "./styled"
-import store from "store"
-import { useState } from "react"
+import React, { useEffect, useRef } from "react"
 
+import FilterIcon from "../assets/icons/filter.svg"
 import LatestIcon from "../assets/icons/latest.svg"
 import PopularIcon from "../assets/icons/popular.svg"
-import FilterIcon from "../assets/icons/filter.svg"
+import store from "store"
+import { styled } from "linaria/react"
+import useCategoryData from "../queries/useCategoryData"
+import { useState } from "react"
 
 const Filter = ({ pageContext }) => {
   const contextCategory = pageContext && pageContext.category

@@ -1,14 +1,13 @@
-import React, { useContext } from "react"
-import { graphql } from "gatsby"
-import Img from "gatsby-image"
-import { ModalContext } from "../context/ModalContext"
-
-import Layout from "../components/layout"
 import { Flex, Row, Sec, Wrap } from "../components/styled"
-import { styled } from "linaria/react"
+import React, { useContext } from "react"
 
 import Button from "../components/button"
+import Img from "gatsby-image"
+import Layout from "../components/layout"
+import { ModalContext } from "../context/ModalContext"
+import { graphql } from "gatsby"
 import { motion } from "framer-motion"
+import { styled } from "linaria/react"
 
 const WallpaperTemplate = ({ data }) => {
   const wallpaper = data.wallpaper

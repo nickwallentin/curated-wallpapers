@@ -1,16 +1,15 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
-import { styled } from "linaria/react"
-import Dropzone from "react-dropzone"
-import useCategoryData from "../../queries/useCategoryData"
+
 import AuthContext from "../../context/AuthContext"
-import { ModalContext } from "../../context/ModalContext"
-import _debounce from "lodash/debounce"
-
-import UploadIcon from "../../assets/icons/uploadToCloud.svg"
+import Dropzone from "react-dropzone"
 import LoadingIcon from "../../assets/icons/loading.svg"
+import { ModalContext } from "../../context/ModalContext"
 import SuccessIcon from "../../assets/icons/success.svg"
-
+import UploadIcon from "../../assets/icons/uploadToCloud.svg"
+import _debounce from "lodash/debounce"
 import { motion } from "framer-motion"
+import { styled } from "linaria/react"
+import useCategoryData from "../../queries/useCategoryData"
 
 const UploadModal = () => {
   const categoryOptions = useCategoryData()

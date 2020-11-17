@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react"
-import { styled } from "linaria/react"
-import useAuth from "../../hooks/useAuth"
-import _debounce from "lodash/debounce"
-import { ModalContext } from "../../context/ModalContext"
-import store from "store"
 
 import LoadingIcon from "../../assets/icons/loading.svg"
+import { ModalContext } from "../../context/ModalContext"
 import SuccessIcon from "../../assets/icons/success.svg"
+import _debounce from "lodash/debounce"
 import { motion } from "framer-motion"
+import store from "store"
+import { styled } from "linaria/react"
+import useAuth from "../../hooks/useAuth"
 
 const AuthModal = () => {
   const { handleModal } = useContext(ModalContext)
