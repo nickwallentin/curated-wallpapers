@@ -1,7 +1,7 @@
 import React from "react"
+import { styled } from "linaria/react"
 import { Grid, Row, Sec, Wrap } from "./styled"
 import { ThemeToggler } from "gatsby-plugin-dark-mode"
-import { styled } from "linaria/react"
 
 import LightModeIcon from "../assets/icons/lightmode.svg"
 import DarkModeIcon from "../assets/icons/darkmode.svg"

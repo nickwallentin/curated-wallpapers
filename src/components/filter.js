@@ -1,6 +1,6 @@
+import React, { useRef, useEffect } from "react"
 import { styled } from "linaria/react"
 import { Link, navigate } from "gatsby"
-import React, { useRef, useEffect } from "react"
 import useCategoryData from "../queries/useCategoryData"
 import { Row, Sec, Wrap, Flex } from "./styled"
 import store from "store"

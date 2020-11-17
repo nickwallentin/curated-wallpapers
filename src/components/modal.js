@@ -1,6 +1,6 @@
+import React, { useContext } from "react"
 import { styled } from "linaria/react"
 import { motion } from "framer-motion"
-import React, { useContext } from "react"
 import ReactDOM from "react-dom"
 import { ModalContext } from "../context/ModalContext"
 

@@ -1,5 +1,5 @@
-import { graphql } from "gatsby"
 import React, { useContext } from "react"
+import { graphql } from "gatsby"
 import Img from "gatsby-image"
 import { ModalContext } from "../context/ModalContext"
 

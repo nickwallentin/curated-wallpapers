@@ -1,5 +1,5 @@
-import { styled } from "linaria/react"
 import React, { useContext } from "react"
+import { styled } from "linaria/react"
 import AuthContext from "../context/AuthContext"
 import { ModalContext } from "../context/ModalContext"
 import useAuth from "../hooks/useAuth"

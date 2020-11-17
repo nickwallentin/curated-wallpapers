@@ -1,5 +1,5 @@
-import { styled } from "linaria/react"
 import React, { useContext, useEffect, useState } from "react"
+import { styled } from "linaria/react"
 import Img from "gatsby-image"
 
 import DownloadIcon from "../assets/icons/download.svg"

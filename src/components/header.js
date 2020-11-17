@@ -1,7 +1,8 @@
-import { Link } from "gatsby"
-import { styled } from "linaria/react"
-import PropTypes from "prop-types"
 import React, { useContext } from "react"
+import { styled } from "linaria/react"
+import { Link } from "gatsby"
+
+import PropTypes from "prop-types"
 import { Flex, Row, Wrap } from "./styled"
 import AddIcon from "../assets/icons/add.svg"
 

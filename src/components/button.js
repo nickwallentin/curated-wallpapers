@@ -1,6 +1,6 @@
-import { Link } from "gatsby"
 import React from "react"
 import { styled } from "linaria/react"
+import { Link } from "gatsby"
 
 import DownloadIcon from "../assets/icons/download.svg"
 
