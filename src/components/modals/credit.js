@@ -8,7 +8,7 @@ const CreditModal = ({ modalContent, handleModal }) => {
   return (
     <CreditModalStyles>
       <div className="modal-image">
-        <Img fluid={modalContent.Thumbnail.childImageSharp.fluid} />
+        <Img fluid={modalContent.localImage.childImageSharp.fluid} />
       </div>
       <div className="modal-credit">
         <h3>Say thank you!</h3>

@@ -8,15 +8,13 @@ export const WallpaperFragments = graphql`
     }
     imageSrc
     dateAdded
-    Thumbnail: localImage {
+    localImage {
+      publicURL
       childImageSharp {
-        fluid(maxWidth: 600, maxHeight: 400, cropFocus: CENTER) {
+        fluid(maxWidth: 400, maxHeight: 250, cropFocus: CENTER) {
           ...GatsbyImageSharpFluid_withWebp
         }
       }
-    }
-    Download: localImage {
-      publicURL
     }
   }
 
@@ -27,20 +25,11 @@ export const WallpaperFragments = graphql`
       displayName
     }
     id
-    imageSrc
-    Download: localImage {
+
+    localImage {
       publicURL
-    }
-    Desktop: localImage {
       childImageSharp {
         fluid(maxWidth: 1920) {
-          ...GatsbyImageSharpFluid_withWebp
-        }
-      }
-    }
-    Thumbnail: localImage {
-      childImageSharp {
-        fluid(maxWidth: 600, maxHeight: 400, cropFocus: CENTER) {
           ...GatsbyImageSharpFluid_withWebp
         }
       }

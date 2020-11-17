@@ -36,7 +36,7 @@ const WallpaperTemplate = ({ data }) => {
                 </div>
                 <Button
                   handleDownload={handleDownload}
-                  file={wallpaper.Download.publicURL}
+                  file={wallpaper.localImage.publicURL}
                   download
                 />
               </Flex>
@@ -45,7 +45,7 @@ const WallpaperTemplate = ({ data }) => {
               <div className="desktop-wallpaper wallpaper">
                 <Img
                   className="wallpaper"
-                  fluid={wallpaper.Desktop.childImageSharp.fluid}
+                  fluid={wallpaper.localImage.childImageSharp.fluid}
                 />
               </div>
             </div>

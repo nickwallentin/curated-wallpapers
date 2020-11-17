@@ -1,5 +1,5 @@
 import { styled } from "linaria/react"
-import React, { useContext } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import Img from "gatsby-image"
 
 import DownloadIcon from "../assets/icons/download.svg"
@@ -8,8 +8,8 @@ import { ModalContext } from "../context/ModalContext"
 import { motion } from "framer-motion"
 
 const Wallpaper = ({ wallpaper }) => {
-  const image = wallpaper.Thumbnail.childImageSharp.fluid
-  const imageSrc = wallpaper.Download.publicURL
+  const image = wallpaper.localImage.childImageSharp.fluid
+  const imageSrc = wallpaper.localImage.publicURL
 
   const { handleModal } = useContext(ModalContext)
 
@@ -22,6 +22,7 @@ const Wallpaper = ({ wallpaper }) => {
       .then(res => res.text())
       .then(text => console.log(text))
   }
+
   return (
     <WallpaperStyles animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
       <div className="wallpaper-image">
